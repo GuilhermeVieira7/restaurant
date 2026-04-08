@@ -36,6 +36,9 @@ public class CategoryService {
 
     public Category update(Long id, CategoryRequest request) {
         Category category = findById(id);
+        if (!category.getName().equals(request.getName()) && categoryRepository.existsByName(request.getName())) {
+            throw new IllegalArgumentException("Categoria com este nome já existe");
+        }
         category.setName(request.getName());
         category.setDescription(request.getDescription());
         return categoryRepository.save(category);
