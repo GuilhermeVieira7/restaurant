@@ -43,6 +43,7 @@ public class SecurityConfig {
                         // Pedidos: WAITER pode criar/gerenciar, todos autenticados podem consultar
                         .requestMatchers(HttpMethod.POST, "/api/orders/**").hasRole("WAITER")
                         .requestMatchers(HttpMethod.PUT, "/api/orders/**").hasAnyRole("WAITER", "ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/orders/**").hasAnyRole("WAITER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/orders/**").authenticated()
 
                         // Vendas: apenas CASHIER pode finalizar
