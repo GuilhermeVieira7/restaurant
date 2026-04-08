@@ -3,6 +3,7 @@ package com.restaurant.controller;
 import com.restaurant.dto.request.LoginRequest;
 import com.restaurant.dto.response.TokenResponse;
 import com.restaurant.entity.User;
+import com.restaurant.exception.ResourceNotFoundException;
 import com.restaurant.repository.UserRepository;
 import com.restaurant.security.JwtTokenProvider;
 import jakarta.validation.Valid;
@@ -31,7 +32,8 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenProvider.generateToken(authentication);
 
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found after successful authentication"));
 
         return ResponseEntity.ok(TokenResponse.builder()
                 .token(token)

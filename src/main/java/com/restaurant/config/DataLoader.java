@@ -61,7 +61,7 @@ public class DataLoader implements CommandLineRunner {
     private void loadProducts() {
         if (productRepository.count() == 0) {
             productRepository.save(Product.builder()
-                    .name("X-Burguer")
+                    .name("X-Burger")
                     .description("Hamburguer com queijo e alface")
                     .price(new BigDecimal("25.90"))
                     .available(true)
