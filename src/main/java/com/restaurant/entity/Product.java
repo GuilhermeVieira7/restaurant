@@ -1,5 +1,6 @@
 package com.restaurant.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,10 +29,13 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Builder.Default
     @Column(nullable = false)
     private boolean available = true;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Category category;
 }
+
